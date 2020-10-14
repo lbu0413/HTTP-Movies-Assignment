@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
 function Movie({ addToSavedList }) {
+  const { push } = useHistory()
   const [movie, setMovie] = useState(null);
   const params = useParams();
 
@@ -25,6 +26,11 @@ function Movie({ addToSavedList }) {
   if (!movie) {
     return <div>Loading movie information...</div>;
   }
+  
+
+  const updateHandler = () => {
+    push(`update-movie/:id`)
+  }
 
   return (
     <div className="save-wrapper">
@@ -33,6 +39,7 @@ function Movie({ addToSavedList }) {
       <div className="save-button" onClick={saveMovie}>
         Save
       </div>
+      <div onClick={updateHandler}>Update</div>
     </div>
   );
 }
